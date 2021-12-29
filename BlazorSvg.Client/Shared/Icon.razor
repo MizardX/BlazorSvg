@@ -1,0 +1,9 @@
+@Type.ToRenderFragment(AdditionalAttributes)
+
+@code {
+    [Parameter]
+    public BlazorSvg.Client.IconType Type { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; }
+}
