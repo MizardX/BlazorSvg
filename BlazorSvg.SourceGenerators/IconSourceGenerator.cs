@@ -90,6 +90,12 @@ namespace BlazorSvg.SourceGenerators
 
         public void Execute(GeneratorExecutionContext context)
         {
+            var namespaceName = "BlazorSvg.Icons";
+            if (context.AnalyzerConfigOptions.GlobalOptions
+                .TryGetValue("build_property.rootnamespace", out var rootNamespace)) {
+                namespaceName = $"{rootNamespace}.Icons";
+            }
+
             var iconItems =
                 context.AdditionalFiles
                 .Where(x => Path.GetExtension(x.Path) == ".svg")
@@ -102,10 +108,12 @@ namespace BlazorSvg.SourceGenerators
             sourceBuilder.AppendLine("using Microsoft.AspNetCore.Components;");
             sourceBuilder.AppendLine("using Microsoft.AspNetCore.Components.Rendering;");
             sourceBuilder.AppendLine("using System.Collections.Generic;");
+            sourceBuilder.AppendLine();
 
-            using (sourceBuilder.BeginScope("namespace BlazorSvg.Client"))
+            using (sourceBuilder.BeginScope($"namespace {namespaceName}"))
             {
                 AppendEnum(sourceBuilder, iconItems);
+                sourceBuilder.AppendLine();
                 AppendConverter(sourceBuilder, iconItems);
             }
 
