@@ -1,9 +1,0 @@
-@Type.ToRenderFragment(AdditionalAttributes)
-
-@code {
-    [Parameter]
-    public IconType Type { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = null!;
-}
